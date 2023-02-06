@@ -1,4 +1,4 @@
-package main;
+package main.linkedlist;
 
 import java.util.*;
 
@@ -45,19 +45,24 @@ public class LinkedList
 
     public boolean remove(int _value)
     {
-        if (this.head == null) {
+        if (head == null) {
             return false;
         }
-        Node node = this.head;
+        Node node = head;
         if (node.value == _value) {
-            this.head = node.next;
+            if (head == tail) {
+                head = null;
+                tail = null;
+                return true;
+            }
+            head = node.next;
             return true;
         }
-        if (head == tail) {
-            return false;
-        }
-        while (node != null) {
+        while (node.next != null) {
             if (node.next.value == _value) {
+                if (tail == node.next) {
+                    tail = node;
+                }
                 node.next = node.next.next;
                 return true;
             }
@@ -73,15 +78,22 @@ public class LinkedList
         }
         Node node = this.head;
         if (node.value == _value) {
-            this.head = node.next;
-            return;
+            if (head == tail) {
+                head = null;
+                tail = null;
+                return;
+            }
+            head = node.next;
         }
-        if (head == tail) {
-            return;
-        }
-        while (node != null) {
+        while (node.next != null) {
             if (node.next.value == _value) {
+                if (tail == node.next) {
+                    tail = node;
+                    node.next = null;
+                    return;
+                }
                 node.next = node.next.next;
+                continue;
             }
             node = node.next;
         }
