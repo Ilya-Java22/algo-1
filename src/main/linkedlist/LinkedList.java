@@ -46,24 +46,30 @@ public class LinkedList {
             return false;
         }
         Node node = head;
+        if (head == tail && node.value != _value) {
+            return false;
+        }
+        if (head == tail) {
+            head = null;
+            tail = null;
+            return true;
+        }
         if (node.value == _value) {
-            if (head == tail) {
-                head = null;
-                tail = null;
-                return true;
-            }
             head = node.next;
             return true;
         }
         while (node.next != null) {
-            if (node.next.value == _value) {
-                if (tail == node.next) {
-                    tail = node;
-                }
-                node.next = node.next.next;
+            if (node.next.value != _value) {
+                node = node.next;
+                continue;
+            }
+            if (tail == node.next) {
+                tail = node;
+                node.next = null;
                 return true;
             }
-            node = node.next;
+            node.next = node.next.next;
+            return true;
         }
         return false;
     }
@@ -73,25 +79,28 @@ public class LinkedList {
             return;
         }
         Node node = this.head;
+        if (head == tail && node.value != _value) {
+            return;
+        }
+        if (head == tail) {
+            head = null;
+            tail = null;
+            return;
+        }
         if (node.value == _value) {
-            if (head == tail) {
-                head = null;
-                tail = null;
-                return;
-            }
             head = node.next;
         }
         while (node.next != null) {
-            if (node.next.value == _value) {
-                if (tail == node.next) {
-                    tail = node;
-                    node.next = null;
-                    return;
-                }
-                node.next = node.next.next;
+            if (node.next.value != _value) {
+                node = node.next;
                 continue;
             }
-            node = node.next;
+            if (tail == node.next) {
+                tail = node;
+                node.next = null;
+                return;
+            }
+            node.next = node.next.next;
         }
     }
 
@@ -111,27 +120,27 @@ public class LinkedList {
     }
 
     public void insertAfter(Node _nodeAfter, Node _nodeToInsert) {
-        if (_nodeAfter == null) {
-            if (tail != null) {
-                Node _nodeAfterAfter = this.head;
-                this.head = _nodeToInsert;
-                _nodeToInsert.next = _nodeAfterAfter;
-            } else {
-                this.head = _nodeToInsert;
-                this.tail = _nodeToInsert;
-                _nodeToInsert.next = null;
-            }
-        } else {
-            if (tail == _nodeAfter) {
-                _nodeAfter.next = _nodeToInsert;
-                tail = _nodeToInsert;
-                _nodeToInsert.next = null;
-            } else {
-                Node _nodeAfterAfter = _nodeAfter.next;
-                _nodeAfter.next = _nodeToInsert;
-                _nodeToInsert.next = _nodeAfterAfter;
-            }
+        if (_nodeAfter == null && tail == null) {
+            this.head = _nodeToInsert;
+            this.tail = _nodeToInsert;
+            _nodeToInsert.next = null;
+            return;
         }
+        if (_nodeAfter == null) {
+            Node _nodeAfterAfter = this.head;
+            this.head = _nodeToInsert;
+            _nodeToInsert.next = _nodeAfterAfter;
+            return;
+        }
+        if (_nodeAfter == tail) {
+            _nodeAfter.next = _nodeToInsert;
+            tail = _nodeToInsert;
+            _nodeToInsert.next = null;
+            return;
+        }
+        Node _nodeAfterAfter = _nodeAfter.next;
+        _nodeAfter.next = _nodeToInsert;
+        _nodeToInsert.next = _nodeAfterAfter;
     }
 }
 
