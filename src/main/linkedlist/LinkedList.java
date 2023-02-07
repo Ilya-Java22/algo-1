@@ -2,13 +2,11 @@ package main.linkedlist;
 
 import java.util.*;
 
-public class LinkedList
-{
+public class LinkedList {
     public Node head;
     public Node tail;
 
-    public LinkedList()
-    {
+    public LinkedList() {
         head = null;
         tail = null;
     }
@@ -43,8 +41,7 @@ public class LinkedList
         return nodes;
     }
 
-    public boolean remove(int _value)
-    {
+    public boolean remove(int _value) {
         if (head == null) {
             return false;
         }
@@ -71,8 +68,7 @@ public class LinkedList
         return false;
     }
 
-    public void removeAll(int _value)
-    {
+    public void removeAll(int _value) {
         if (this.head == null) {
             return;
         }
@@ -99,14 +95,12 @@ public class LinkedList
         }
     }
 
-    public void clear()
-    {
+    public void clear() {
         this.head = null;
         this.tail = null;
     }
 
-    public int count()
-    {
+    public int count() {
         int sum = 0;
         Node node = this.head;
         while (node != null) {
@@ -116,17 +110,28 @@ public class LinkedList
         return sum;
     }
 
-    public void insertAfter(Node _nodeAfter, Node _nodeToInsert)
-    {
+    public void insertAfter(Node _nodeAfter, Node _nodeToInsert) {
         if (_nodeAfter == null) {
-            Node _nodeAfterAfter = this.head;
-            this.head = _nodeToInsert;
-            _nodeToInsert.next = _nodeAfterAfter;
-
+            if (tail != null) {
+                Node _nodeAfterAfter = this.head;
+                this.head = _nodeToInsert;
+                _nodeToInsert.next = _nodeAfterAfter;
+            } else {
+                this.head = _nodeToInsert;
+                this.tail = _nodeToInsert;
+                _nodeToInsert.next = null;
+            }
+        } else {
+            if (tail == _nodeAfter) {
+                _nodeAfter.next = _nodeToInsert;
+                tail = _nodeToInsert;
+                _nodeToInsert.next = null;
+            } else {
+                Node _nodeAfterAfter = _nodeAfter.next;
+                _nodeAfter.next = _nodeToInsert;
+                _nodeToInsert.next = _nodeAfterAfter;
+            }
         }
-        Node _nodeAfterAfter = _nodeAfter.next;
-        _nodeAfter.next = _nodeToInsert;
-        _nodeToInsert.next = _nodeAfterAfter;
     }
 }
 
