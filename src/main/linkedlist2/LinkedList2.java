@@ -38,9 +38,9 @@ public class LinkedList2
         return node;
     }
 
-    public List<Node> findAll(int _value)
+    public ArrayList<Node> findAll(int _value)
     {
-        List<Node> nodes = new ArrayList<>();
+        ArrayList<Node> nodes = new ArrayList<>();
         Node node = head;
         while (node != null) {
             if (node.value == _value) {
