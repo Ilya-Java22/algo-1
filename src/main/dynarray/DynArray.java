@@ -59,8 +59,8 @@ public class DynArray<T>
         }
         array[count - 1] = null;
         count--;
-        if ((count < capacity / 2) && (int) (capacity / 1.5) > 16) {
-            makeArray((int) (capacity / 1.5));
+        if (count < capacity / 2) {
+            makeArray(Math.max((int) (capacity / 1.5), 16));
         }
     }
 }
