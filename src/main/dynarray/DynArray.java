@@ -58,8 +58,9 @@ public class DynArray<T>
             System.arraycopy(array, index + 1, array, index, count - index - 1);
         }
         array[count - 1] = null;
-        if (--count < capacity / 2) {
-            array = Arrays.copyOf(array, Math.max((int) (capacity / 1.5), 16));
+        count--;
+        if ((count < capacity / 2) && (int) (capacity / 1.5) > 16) {
+            makeArray((int) (capacity / 1.5));
         }
     }
 }
