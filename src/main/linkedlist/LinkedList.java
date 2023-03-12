@@ -1,16 +1,13 @@
 package main.linkedlist;
 
 import java.util.*;
-
 public class LinkedList {
     public Node head;
     public Node tail;
-
     public LinkedList() {
         head = null;
         tail = null;
     }
-
     public void addInTail(Node item) {
         if (this.head == null)
             this.head = item;
@@ -18,7 +15,6 @@ public class LinkedList {
             this.tail.next = item;
         this.tail = item;
     }
-
     public Node find(int value) {
         Node node = this.head;
         while (node != null) {
@@ -28,7 +24,6 @@ public class LinkedList {
         }
         return null;
     }
-
     public ArrayList<Node> findAll(int _value) {
         ArrayList<Node> nodes = new ArrayList<Node>();
         Node node = this.head;
@@ -40,7 +35,6 @@ public class LinkedList {
         }
         return nodes;
     }
-
     public boolean remove(int _value) {
         if (head == null) {
             return false;
@@ -73,7 +67,6 @@ public class LinkedList {
         }
         return false;
     }
-
     public void removeAll(int _value) {
         if (this.head == null) {
             return;
@@ -103,12 +96,10 @@ public class LinkedList {
             node.next = node.next.next;
         }
     }
-
     public void clear() {
         this.head = null;
         this.tail = null;
     }
-
     public int count() {
         int sum = 0;
         Node node = this.head;
@@ -118,7 +109,6 @@ public class LinkedList {
         }
         return sum;
     }
-
     public void insertAfter(Node _nodeAfter, Node _nodeToInsert) {
         if (_nodeAfter == null && tail == null) {
             this.head = _nodeToInsert;
@@ -143,7 +133,6 @@ public class LinkedList {
         _nodeToInsert.next = _nodeAfterAfter;
     }
 }
-
 class Node
 {
     public int value;
