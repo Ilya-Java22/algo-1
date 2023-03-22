@@ -23,12 +23,12 @@ public class Deque<T>
 
     public T removeFront()
     {
-        return size() == 0 ? list.removeFirst() : null;
+        return size() != 0 ? list.removeFirst() : null;
     }
 
     public T removeTail()
     {
-        return size() == 0 ? list.removeLast() : null;
+        return size() != 0 ? list.removeLast() : null;
     }
 
     public int size()
