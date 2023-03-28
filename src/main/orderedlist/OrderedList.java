@@ -61,7 +61,7 @@ public class OrderedList<T>
         Node<T> prevNode = null;
         Node<T> node = this.head;
         int sign = _ascending ? 1 : -1;
-        while (node != null && sign * compare(value, node.value) >= 0) {
+        while (node != null && sign * compare(value, node.value) > 0) {
             prevNode = node;
             node = node.next;
         }
@@ -72,8 +72,9 @@ public class OrderedList<T>
             return;
         }
         if (node == null) {
-            tail = newNode;
             prevNode.next = newNode;
+            newNode.prev = prevNode;
+            tail = newNode;
             return;
         }
         newNode.next = node;
