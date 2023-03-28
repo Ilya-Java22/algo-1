@@ -1,6 +1,6 @@
 package main.orderedlist;
 
-import java.util.*;
+import java.util.ArrayList;
 
 class Node<T>
 {
@@ -15,7 +15,7 @@ class Node<T>
     }
 }
 
-public class OrderedList<T extends Number>
+public class OrderedList<T>
 {
     public Node<T> head, tail;
     private boolean _ascending;
@@ -29,9 +29,25 @@ public class OrderedList<T extends Number>
 
     public int compare(T v1, T v2)
     {
-        double v_1 = v1.doubleValue();
-        double v_2 = v2.doubleValue();
-        return v_1 != v_2 ? (int) ((v_1 - v_2) / Math.abs(v_1 - v_2)) : 0;
+        if (v1 instanceof Number) {
+            double v_1 = ((Number) v1).doubleValue();
+            double v_2 = ((Number) v2).doubleValue();
+            return v_1 != v_2 ? (int) ((v_1 - v_2) / Math.abs(v_1 - v_2)) : 0;
+        }
+        if (v1 instanceof String) {
+            String v_1 = ((String) v1).trim();
+            String v_2 = ((String) v2).trim();
+            int _v1 = v_1.length();
+            int _v2 = v_2.length();
+            for (int i = 0; i < Math.min(_v1, _v2); i++) {
+                int result = Character.compare(v_1.charAt(i), v_2.charAt(i));
+                if (result != 0) {
+                    return result;
+                }
+            }
+            return _v1 != _v2 ? ((_v1 - _v2) / Math.abs(_v1 - _v2)) : 0;
+        }
+        return 0;
     }
 
     public void add(T value)
