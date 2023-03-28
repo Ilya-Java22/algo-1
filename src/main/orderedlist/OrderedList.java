@@ -15,7 +15,7 @@ class Node<T>
     }
 }
 
-public class OrderedList<T>
+public class OrderedList<T extends Number>
 {
     public Node<T> head, tail;
     private boolean _ascending;
@@ -29,30 +29,40 @@ public class OrderedList<T>
 
     public int compare(T v1, T v2)
     {
-        double v_1 = (double) v1;
-        double v_2 = (double) v2;
+        double v_1 = v1.doubleValue();
+        double v_2 = v2.doubleValue();
         return v_1 != v_2 ? (int) ((v_1 - v_2) / Math.abs(v_1 - v_2)) : 0;
     }
 
     public void add(T value)
     {
-        Node<T> node = this.head;
-        int sign = _ascending ? 1 : -1;
-        while (node != null) {
-            if (sign * compare(value, node.value) < 0) {
-                break;
-            }
-            node = node.next;
-        }
         Node<T> newNode = new Node<>(value);
-        if (node == null) {
+        if (head == null) {
             head = newNode;
             tail = newNode;
             return;
         }
+        Node<T> prevNode = null;
+        Node<T> node = this.head;
+        int sign = _ascending ? 1 : -1;
+        while (node != null && sign * compare(value, node.value) >= 0) {
+            prevNode = node;
+            node = node.next;
+        }
+        if (prevNode == null) {
+            head.prev = newNode;
+            newNode.next = head;
+            head = newNode;
+            return;
+        }
+        if (node == null) {
+            tail = newNode;
+            prevNode.next = newNode;
+            return;
+        }
         newNode.next = node;
-        newNode.prev = node.prev;
-        node.prev.next = newNode;
+        newNode.prev = prevNode;
+        prevNode.next = newNode;
         node.prev = newNode;
     }
 
