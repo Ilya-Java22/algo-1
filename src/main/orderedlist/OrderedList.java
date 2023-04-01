@@ -85,16 +85,34 @@ public class OrderedList<T>
 
     public Node<T> find(T val)
     {
+        int sign = _ascending ? 1 : -1;
+        if (tail == null || sign * compare(tail.value, val) == -1 || sign * compare(head.value, val) == 1) {
+            return null;
+        }
         Node<T> node = head;
-        while(node != null)
+        int comp;
+        while (node != null && (comp = sign * compare(node.value, val)) != 1)
         {
-            if (compare(val, node.value) == 0) {
-                break;
+            if (comp == 0) {
+                return node;
             }
             node = node.next;
         }
-        return node;
+        return null;
     }
+
+//    public Node<T> find(T val)
+//    {
+//        Node<T> node = head;
+//        while(node != null)
+//        {
+//            if (compare(val, node.value) == 0) {
+//                break;
+//            }
+//            node = node.next;
+//        }
+//        return node;
+//    }
 
     public void delete(T val)
     {
