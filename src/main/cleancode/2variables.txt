@@ -1,0 +1,43 @@
+6.1
+result - factorialFirstDigit
+//первая цифра факториала
+
+rsl - totalDistance
+//общее пройденное расстояние
+
+days - invadeNumberOfDays
+// кол-во дней, требуемых на захват
+
+sum - totalTonerConsumption
+// общий расход тонера
+
+rsl - convertedUFOSignal
+// конвертироанный сигнал НЛО
+
+6.2
+
+customerQueue
+
+serverLog
+
+loggerSingleton
+
+userTransaction
+
+6.3
+userFirstName, userLastName, userAge - переменные, касающиеся пользователя
+
+arrayRow, arrayColumn - переменные, касающиеся массива (в методе, заполняющем массив)
+
+vacancyTitle, vacancyDescription - переменные, касающиеся вакансии
+
+6.4
+totalTonerConsumption - tonerConsumption
+
+column - arrayColumn
+
+user - username
+
+days - numberOfDays
+
+input - inputString
