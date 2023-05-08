@@ -1,0 +1,63 @@
+7.1
+check - monsterIsFound
+// ходоки найдены (в if эта переменная не фигурирует)
+
+rsl - isPassed
+// тест пройден
+
+result - isEqual
+//строка равна эталонной
+
+prime - isPrime
+// простое число
+
+check1 - leftCheckOk
+// проверка совпадения индексов для отрисовки левой диагонали
+
+7.2
+error - когда в цикле найдено значение, нарушающее исходное условие, обозначенное до цикла, и надо выйти из него
+
+done - индикатор заполнения массива нужными значениями для продолжения выполнения программмы
+
+found - когда в цикле while(!found) найдено значение, требующееся по условию, и надо выйти из цикла
+
+7.3
+Например, при отрисовке крестика в двойном цикле - лучше обозвать индексы столбцом и строкой
+
+for (int row = 0; row < size; row++) {
+            for (int cell = 0; cell < size; cell++) {
+                boolean leftCheckOk = row == cell;
+                boolean rightCheckOk = row + cell == size - 1;
+                if (leftCheckOk) {
+                    System.out.print("0");
+                } else if (rightCheckOk) {
+                    System.out.print("0");
+                } else {
+                    System.out.print(" ");
+                }
+            }
+            System.out.println();
+        }
+
+7.4
+boolean rightCheckOk - leftCheckOk из примера выше
+
+int rightNum - leftNum при сравнении чисел
+
+    public static int max(int leftNum, int rightNum) {
+        return leftNum >= rightNum ? leftNum : rightNum;
+    }
+
+7.5
+поменять значения двух переменных между собой
+
+        if (!encode) {
+            int temp = rowsNumber;
+            rowsNumber = cellsNumber;
+            cellsNumber = temp;
+        }
+заменить temp на changerVar или varForChange
+избавиться можно так: rowNumber = rowsNumber + cellsNumber - (cellsNumber = rowsNumber);
+
+String s = line.substring(0,line.indexOf('*', 1));
+заменить s на asteriskSubstring
