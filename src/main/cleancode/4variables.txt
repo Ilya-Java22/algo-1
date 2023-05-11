@@ -1,0 +1,23 @@
+stack1 - outputStack
+
+sum1 - inputValuesSum
+
+s2 - inputStringTwo
+
+result - factorialFirstDigit
+
+sum - distanceTotal
+
+titleString - vacancyTitle
+
+max - finalValueMax
+
+tableCities - inputCities
+
+receivers - numReceivers
+
+speed - speedKmh
+
+time - timeMsTotal
+
+average - customerAgeAverage
