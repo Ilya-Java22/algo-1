@@ -1,0 +1,15 @@
+3.1.
+FileManager - FileController
+
+ThreadController - ThreadHandler
+
+DataCollector - CustomerDetailsCollector
+
+InfoSelector - InputSelector
+
+Collect - Collector
+
+3.2.
+Улучшать нечего, данная проблема не возникает из-за того,
+что в проекте пользуюсь интерфейсами (в которых объявлены методы с конкретными именами) и их классами-реализациями.
+В итоге получаем единые названия по всему проекту.
