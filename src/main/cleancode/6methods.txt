@@ -1,0 +1,35 @@
+sum2D - sum2DArrayIntElements
+//сумма элементов 2D массива с int элементами
+
+ConquestCampaign - calcNumberOfDaysForTerritoryCapturing
+//вычисление кол-ва дней, требующихся на захват территории
+
+MadMax - modStartImpulseToMaxMovementSpeed
+//модифицировать стартовый импульс для максимизации скорости движения
+
+len - calcLineLength
+// вычисление длины линии
+
+WordSerch - searchWordByAlignmentMethod
+// поиск слова методом выравнивания
+
+SumOfThe - findArrayElementEqualToSumOfOthers
+//найти в массиве число, равное сумме остальных
+
+fillArray - fill2DCharArrayWithString
+//заполнить 2D массив символами из строки
+
+PrintingCosts - calcTonerConsumptionPerString
+//вычислить расход тонера на печать строки
+
+BigMinus - calcDiffOfBigIntValues
+//вычислить разность BigInteger значений
+
+UFO - convertNumberOctAndHexToDecimal
+//конвертировать число из восьмеричной и шестнадцатеричной системы счисления в десятичную
+
+equalArray - сompare2DCharArrays
+//сравнить два 2D символьных массива
+
+stringToStringBuilder - convertStringArrayToStringBuilder
+//конвертировать массив строк в объект StringBuilder
