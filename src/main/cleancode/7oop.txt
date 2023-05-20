@@ -1,0 +1,20 @@
+class Employee {
+  static Employee create(int type) {
+    employee = new Employee(type);
+    return employee;
+  }
+}
+
+class Cat {
+  static Cat create(int age) {
+    cat = new Cat(age);
+    return cat;
+  }
+}
+
+class Student {
+  static Student create(String name, int course) {
+    student = new Student(name, course);
+    return student;
+  }
+}
