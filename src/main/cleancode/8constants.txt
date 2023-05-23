@@ -1,0 +1,35 @@
+private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd-MMMM-EEEE-yyyy HH:mm:ss");
+// изменил имя переменной на корректное
+
+private static final String NEW_VALUE = "";
+// изменил имя переменной на корректное
+
+private static final Set<String> STOP_STRINGS = Set.of("qwerty", "12345", "password", "admin", "user");
+// изменил имя переменной на корректное
+
+private static final int COUNT_ENGINE = 2;
+// изменил имя переменной на корректное
+
+private static final String STOP = "стоп";
+// изменил имя переменной на корректное
+
+private static final float LOAD_FACTOR = 0.75f;
+// изменил имя переменной на корректное
+
+private static final Runtime ENVIRONMENT = Runtime.getRuntime();
+// изменил имя переменной на корректное
+
+private static final Properties CONFIGURATION = new Properties();
+// изменил имя переменной на корректное
+
+private static final String SOURCE_LINK = "https://career.habr.com";
+// изменил имя переменной на корректное
+
+static final String[] FLAVORS = {"Chocolate", "Strawberry", "Vanilla Fudge Swirl"};
+// изменил имя переменной на корректное
+
+private static final int MAX_SIZE_KB = 1024;
+// изменил имя переменной на корректное
+
+private static final String SYSTEM_PASSWORD = "1234";
+// изменил имя переменной на корректное
