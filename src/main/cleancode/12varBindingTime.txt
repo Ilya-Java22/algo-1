@@ -1,0 +1,55 @@
+1. Связывание переменной во время компиляции кода на примере Синглтона с "энергичной" загрузкой.
+Используем, когда в приложении нет затратных ресурсов.
+
+public class TrackerSingle {
+    private static final TrackerSingle INSTANCE = new TrackerSingle();
+
+    private TrackerSingle() {
+    }
+
+    public static TrackerSingle getInstance() {
+        return INSTANCE;
+    }
+
+    public Item add(Item model) {
+        return model;
+    }
+
+    public static void main(String[] args) {
+        TrackerSingle tracker = TrackerSingle.getInstance();
+    }
+}
+
+2. Связывание переменной во время выполнения программы на примере Синглтона с "ленивой" загрузкой.
+   Используем, когда в приложении есть затратные ресурсы.
+
+public class TrackerSingle {
+    private TrackerSingle() {
+    }
+
+    public static TrackerSingle getInstance() {
+        return Holder.INSTANCE;
+    }
+
+    public Item add(Item model) {
+        return model;
+    }
+
+    private static final class Holder {
+        private static final TrackerSingle INSTANCE = new TrackerSingle();
+    }
+
+    public static void main(String[] args) {
+        TrackerSingle tracker = TrackerSingle.getInstance();
+    }
+}
+
+3. Максимально раннее связывание в тривиальном случае для инициализации начального значения
+
+    public static long calcFactorial(int N){
+        long result = 1;
+        for (int i = 2; i <= N; i++) {
+            result *= i;
+        }
+        return result;
+    }
