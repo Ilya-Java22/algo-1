@@ -1,0 +1,115 @@
+1.
+    //заархивировать входящие файлы
+    public void packFiles(ArgsName argsName, List<File> list) {
+        File target = new File(argsName.get("o"));
+        try (ZipOutputStream zip = new ZipOutputStream(new BufferedOutputStream(new FileOutputStream(target)))) {
+            int lengthRootPath = Path.of(argsName.get("d")).getNameCount();
+            for (File file : list) {
+        ...............
+    }
+
+2.
+
+    //прочитать данные из CSV файла и вывести их
+    public static void handle(ArgsName argsName) {
+            String delimiter = argsName.get("delimiter");
+            String output = argsName.get("out");
+            Path origin = Path.of(argsName.get("path"));
+            List<String> filter = Arrays.asList(argsName.get("filter").split(","));
+            try (Scanner scanner = new Scanner(origin);
+                 PrintStream ps = "stdout".equals(output) ? System.out : new PrintStream(output)) {
+    ...................................
+                ps.println(rsl);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+    }
+
+3.
+    //создать массив - таблицу умножения
+    public static int[][] multiple(int size) {
+        int[][] rsl = new int[size][size];
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                rsl[i][j] = (i + 1) * (j + 1);
+            }
+        }
+        return rsl;
+    }
+
+4.
+    //считать текст из файла в Map
+    public void load() {
+        try (BufferedReader read = new BufferedReader(new FileReader(this.path))) {
+            read.lines().filter(s -> !s.startsWith("#") && !s.isEmpty())
+                    .map(s -> s.split("=", 2))
+                    .filter(this::check)
+                    .forEach(s -> values.put(s[0], s[1]));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+5.
+    //найти диапазоны, когда сервер не работал и записываем их в файл
+    public static void unavailable(String source, String target) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(source));
+        PrintWriter writer = new PrintWriter(target)) {
+            boolean server = true;
+            String s;
+            while ((s = reader.readLine()) != null) {
+                String[] ss = s.split(" ");
+                if (server && ("400".equals(ss[0])  || "500".equals(ss[0]))) {
+......................................
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+6.
+     //сохранить список юзеров в таблицу
+     public void save(List<User> users) throws ClassNotFoundException, SQLException {
+            Class.forName(cfg.getProperty("jdbc.driver"));
+            try (Connection cnt = DriverManager.getConnection(
+                    cfg.getProperty("jdbc.url"),
+                    cfg.getProperty("jdbc.username"),
+                    cfg.getProperty("jdbc.password")
+            )) {
+                try (Statement statement = cnt.createStatement()) {
+                    String sql = String.format(
+                            "CREATE TABLE IF NOT EXISTS users(%s, %s);",
+                            "name TEXT",
+                            "email TEXT"
+                    );
+                    statement.execute(sql);
+                }
+                for (User user : users) {
+                    try (PreparedStatement ps = cnt.prepareStatement("INSERT INTO users(name, email) VALUES (?, ?)")) {
+                        ps.setString(1, user.name);
+                        ps.setString(2, user.email);
+                        ps.execute();
+                    }
+                }
+            }
+        }
+
+7.
+    //создать и сохранить отрисовку структуры таблицы
+    public static String getTableScheme(Connection connection, String tableName) throws Exception {
+        var rowSeparator = "-".repeat(30).concat(System.lineSeparator());
+        var header = String.format("%-15s|%-15s%n", "NAME", "TYPE");
+        var buffer = new StringJoiner(rowSeparator, rowSeparator, rowSeparator);
+        buffer.add(header);
+        try (var statement = connection.createStatement()) {
+            var selection = statement.executeQuery(String.format(
+                    "SELECT * FROM %s LIMIT 1", tableName
+            ));
+            var metaData = selection.getMetaData();
+            for (int i = 1; i <= metaData.getColumnCount(); i++) {
+                buffer.add(String.format("%-15s|%-15s%n",
+                        metaData.getColumnName(i), metaData.getColumnTypeName(i))
+                );
+            }
+        }
+        return buffer.toString();
+    }
