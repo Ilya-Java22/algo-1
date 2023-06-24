@@ -1,0 +1,149 @@
+1. Информативные комментарии
+
+    // проверяет строку на соответствие шаблону "key=value", в частности на отсутствие value
+    if (s.matches("[^=]+=$")) {
+                throw new ..............
+            }
+
+    // в рамках поиска файлов возвращает Predicate, использующий в зависимости от аргумента,
+    // проверку имени файла по маске или по шаблону
+        public static Predicate<Path> condition(ArgsName argsName) {
+            final var name = argsName.get("n");
+            return p -> FileSystems.getDefault()
+                    .getPathMatcher("mask".equals(argsName.get("t"))
+                            ? "glob:" + name
+                            : "regex:" + name)
+                    .matches(p.getFileName());
+        }
+
+    //читает и выводит данные из CSV файла
+    public static void handle(ArgsName argsName) {
+            String delimiter = argsName.get("delimiter");
+            String output = argsName.get("out");
+            Path origin = Path.of(argsName.get("path"));
+            List<String> filter = Arrays.asList(argsName.get("filter").split(","));
+            try (Scanner scanner = new Scanner(origin);
+                 PrintStream ps = "stdout".equals(output) ? System.out : new PrintStream(output)) {
+    ...................................
+                ps.println(rsl);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+    }
+
+    //создает массив - таблицу умножения
+    public static int[][] multiple(int size) {
+        int[][] rsl = new int[size][size];
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                rsl[i][j] = (i + 1) * (j + 1);
+            }
+        }
+        return rsl;
+    }
+
+    //считает текст из файла в Map
+    public void load() {
+        try (BufferedReader read = new BufferedReader(new FileReader(this.path))) {
+            read.lines().filter(s -> !s.startsWith("#") && !s.isEmpty())
+                    .map(s -> s.split("=", 2))
+                    .filter(this::check)
+                    .forEach(s -> values.put(s[0], s[1]));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //определяет диапазоны, когда сервер не работал и записывает их в файл
+    public static void unavailable(String source, String target) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(source));
+        PrintWriter writer = new PrintWriter(target)) {
+            boolean server = true;
+            String s;
+            while ((s = reader.readLine()) != null) {
+                String[] ss = s.split(" ");
+                if (server && ("400".equals(ss[0])  || "500".equals(ss[0]))) {
+        ......................................
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+     //сохраняет список юзеров в таблицу
+     public void save(List<User> users) throws ClassNotFoundException, SQLException {
+            Class.forName(cfg.getProperty("jdbc.driver"));
+            try (Connection cnt = DriverManager.getConnection(
+                    cfg.getProperty("jdbc.url"),
+                    cfg.getProperty("jdbc.username"),
+                    cfg.getProperty("jdbc.password")
+            )) {
+                try (Statement statement = cnt.createStatement()) {
+                    String sql = String.format(
+                            "CREATE TABLE IF NOT EXISTS users(%s, %s);",
+                            "name TEXT",
+                            "email TEXT"
+                    );
+                    statement.execute(sql);
+                }
+                for (User user : users) {
+                    try (PreparedStatement ps = cnt.prepareStatement("INSERT INTO users(name, email) VALUES (?, ?)")) {
+                        ps.setString(1, user.name);
+                        ps.setString(2, user.email);
+                        ps.execute();
+                    }
+                }
+            }
+        }
+
+    //создает и сохраняет отрисовку структуры таблицы
+    public static String getTableScheme(Connection connection, String tableName) throws Exception {
+        var rowSeparator = "-".repeat(30).concat(System.lineSeparator());
+        var header = String.format("%-15s|%-15s%n", "NAME", "TYPE");
+        var buffer = new StringJoiner(rowSeparator, rowSeparator, rowSeparator);
+        buffer.add(header);
+        try (var statement = connection.createStatement()) {
+            var selection = statement.executeQuery(String.format(
+                    "SELECT * FROM %s LIMIT 1", tableName
+            ));
+            var metaData = selection.getMetaData();
+            for (int i = 1; i <= metaData.getColumnCount(); i++) {
+                buffer.add(String.format("%-15s|%-15s%n",
+                        metaData.getColumnName(i), metaData.getColumnTypeName(i))
+                );
+            }
+        }
+        return buffer.toString();
+    }
+
+2. Представление намерений
+
+    // создаем список из большого кол-ва объектов на которые ссылаются безопасные ссылки для демонстрации работы GC
+     List<SoftReference<Object>> objects = new ArrayList<>();
+            for (int i = 0; i < 100_000_000; i++) {
+                objects.add(new SoftReference<Object>(new Object() {
+                    String value = String.valueOf(System.currentTimeMillis());
+         ..........................................
+
+
+
+    // создаем большое кол-во объектов без ссылок для демонстрации работы GC
+     for (int i = 0; i < 10000; i++) {
+                new Person(i, "N" + i);
+            }
+            System.gc();
+
+4. Предупреждения о последствиях
+
+    // не используйте этот метод, он приведет к ошибке OutOfMemoryException
+    private static void fillList() {
+        List<String> strings = new ArrayList<>();
+        while (true) {
+            strings.add(String.valueOf(System.currentTimeMillis()));
+        }
+    }
+
+6. Комментарии TODO
+
+    // TODO - На данный момент эта функция не используется
+    // и поэтому сделана заглушкой.
+    public static void calcParameters() {}
