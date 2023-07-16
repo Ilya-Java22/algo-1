@@ -107,17 +107,21 @@ class BST<T> {
                 eraseNode(leftFromRightNode);
                 return true;
             }
-            breakAndLinkNodes(leftFromRightNode.RightChild, leftFromRightNode, leftFromRightNode.Parent);
+            breakAndLinkNodes(leftFromRightNode.RightChild, leftFromRightNode);
             return true;
         }
         BSTNode<T> node = deletedFindNode.Node.RightChild == null ?
                 deletedFindNode.Node.LeftChild : deletedFindNode.Node.RightChild;
-        breakAndLinkNodes(node, deletedFindNode.Node, deletedFindNode.Node.Parent);
+        breakAndLinkNodes(node, deletedFindNode.Node);
         return true;
     }
 
     private void eraseNode(BSTNode<T> node) {
         node.NodeValue = null;
+        if (node.Parent == null) {
+            this.Root = null;
+            return;
+        }
         if (node.Parent.NodeKey > node.NodeKey) {
             node.Parent.LeftChild = null;
         } else {
@@ -126,12 +130,18 @@ class BST<T> {
         node.Parent = null;
     }
 
-    private void breakAndLinkNodes(BSTNode<T> downNode, BSTNode<T> intermediateNode, BSTNode<T> upNode) {
-        downNode.Parent = upNode;
-        if (upNode.NodeKey > downNode.NodeKey) {
-            upNode.LeftChild = downNode;
+    private void breakAndLinkNodes(BSTNode<T> downNode, BSTNode<T> intermediateNode) {
+        if (intermediateNode == this.Root) {
+            downNode.Parent = null;
+            this.Root = downNode;
         } else {
-            upNode.RightChild = downNode;
+            BSTNode<T> upNode = intermediateNode.Parent;
+            downNode.Parent = upNode;
+            if (upNode.NodeKey > downNode.NodeKey) {
+                upNode.LeftChild = downNode;
+            } else {
+                upNode.RightChild = downNode;
+            }
         }
         intermediateNode.NodeValue = null;
         intermediateNode.Parent = null;
