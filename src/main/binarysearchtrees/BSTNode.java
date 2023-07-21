@@ -10,11 +10,11 @@ import java.util.stream.Collectors;
 
 class BSTNode<T>
 {
-    public int NodeKey; // ключ узла
-    public T NodeValue; // значение в узле
-    public BSTNode<T> Parent; // родитель или null для корня
-    public BSTNode<T> LeftChild; // левый потомок
-    public BSTNode<T> RightChild; // правый потомок	
+    public int NodeKey; // РєР»СЋС‡ СѓР·Р»Р°
+    public T NodeValue; // Р·РЅР°С‡РµРЅРёРµ РІ СѓР·Р»Рµ
+    public BSTNode<T> Parent; // СЂРѕРґРёС‚РµР»СЊ РёР»Рё null РґР»СЏ РєРѕСЂРЅСЏ
+    public BSTNode<T> LeftChild; // Р»РµРІС‹Р№ РїРѕС‚РѕРјРѕРє
+    public BSTNode<T> RightChild; // РїСЂР°РІС‹Р№ РїРѕС‚РѕРјРѕРє	
 
     public BSTNode(int key, T val, BSTNode<T> parent)
     {
@@ -26,23 +26,23 @@ class BSTNode<T>
     }
 }
 
-// промежуточный результат поиска
+// РїСЂРѕРјРµР¶СѓС‚РѕС‡РЅС‹Р№ СЂРµР·СѓР»СЊС‚Р°С‚ РїРѕРёСЃРєР°
 class BSTFind<T>
 {
-    // null если в дереве вообще нету узлов
+    // null РµСЃР»Рё РІ РґРµСЂРµРІРµ РІРѕРѕР±С‰Рµ РЅРµС‚Сѓ СѓР·Р»РѕРІ
     public BSTNode<T> Node;
 
-    // true если узел найден
+    // true РµСЃР»Рё СѓР·РµР» РЅР°Р№РґРµРЅ
     public boolean NodeHasKey;
 
-    // true, если родительскому узлу надо добавить новый левым
+    // true, РµСЃР»Рё СЂРѕРґРёС‚РµР»СЊСЃРєРѕРјСѓ СѓР·Р»Сѓ РЅР°РґРѕ РґРѕР±Р°РІРёС‚СЊ РЅРѕРІС‹Р№ Р»РµРІС‹Рј
     public boolean ToLeft;
 
     public BSTFind() { Node = null; }
 }
 
 class BST<T> {
-    BSTNode<T> Root; // корень дерева, или null
+    BSTNode<T> Root; // РєРѕСЂРµРЅСЊ РґРµСЂРµРІР°, РёР»Рё null
 
     public BST(BSTNode<T> node) {
         Root = node;
@@ -161,7 +161,7 @@ class BST<T> {
     }
 
 
-    //рекурсивный обход в ширину с формированием списка ArrayList
+    //СЂРµРєСѓСЂСЃРёРІРЅС‹Р№ РѕР±С…РѕРґ РІ С€РёСЂРёРЅСѓ СЃ С„РѕСЂРјРёСЂРѕРІР°РЅРёРµРј СЃРїРёСЃРєР° ArrayList
     public List<BSTNode> WideAllNodes() {
         List<BSTNode> result = new ArrayList<>();
         if (this.Root != null) {
@@ -172,7 +172,8 @@ class BST<T> {
         return result;
     }
 
-    //рекурсивный обход в ширину, внутренний метод
+
+    //СЂРµРєСѓСЂСЃРёРІРЅС‹Р№ РѕР±С…РѕРґ РІ С€РёСЂРёРЅСѓ, РІРЅСѓС‚СЂРµРЅРЅРёР№ РјРµС‚РѕРґ
     private void BFS(Queue<BSTNode> data, Consumer<BSTNode> action) {
         if (data.isEmpty()) {
             return;
