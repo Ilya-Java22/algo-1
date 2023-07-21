@@ -1,7 +1,12 @@
 package main.binarysearchtrees;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 class BSTNode<T>
 {
@@ -151,15 +156,95 @@ class BST<T> {
 
     public int Count() {
         AtomicInteger count = new AtomicInteger(0);
-        treeTraversal(this.Root, e -> count.incrementAndGet());
+        treeTraversalPreOrder(this.Root, e -> count.incrementAndGet());
         return count.get();
     }
 
-    private void treeTraversal(BSTNode<T> currentNode, Consumer<BSTNode<T>> action) {
+
+    //рекурсивный обход в ширину с формированием списка ArrayList
+    public List<BSTNode> WideAllNodes() {
+        List<BSTNode> result = new ArrayList<>();
+        if (this.Root != null) {
+            Queue<BSTNode> data = new LinkedList<>();
+            data.offer(this.Root);
+            BFS(data, result::add);
+        }
+        return result;
+    }
+
+    //рекурсивный обход в ширину, внутренний метод
+    private void BFS(Queue<BSTNode> data, Consumer<BSTNode> action) {
+        if (data.isEmpty()) {
+            return;
+        }
+        BSTNode<T> polledtNode = data.poll();
+        action.accept(polledtNode);
+        if (polledtNode.LeftChild != null) {
+            data.offer(polledtNode.LeftChild);
+        }
+        if (polledtNode.RightChild != null) {
+            data.offer(polledtNode.RightChild);
+        }
+        BFS(data, action);
+    }
+
+    public List<BSTNode> DeepAllNodes(int treeTraversalType) {
+        List<BSTNode> result = new ArrayList<>();
+        if (this.Root == null) {
+            return result;
+        }
+        if (treeTraversalType == 0) {
+            treeTraversalInOrder(this.Root, result::add);
+            return result;
+        }
+        if (treeTraversalType == 1) {
+            treeTraversalPostOrder(this.Root, result::add);
+            return result;
+        }
+        if (treeTraversalType == 2) {
+            treeTraversalPreOrder(this.Root, result::add);
+            return result;
+        }
+        throw new IllegalArgumentException("Illegal parameter");
+    }
+
+    private void treeTraversalPreOrder(BSTNode<T> currentNode, Consumer<BSTNode<T>> action) {
         if (currentNode != null) {
             action.accept(currentNode);
-            treeTraversal(currentNode.LeftChild, action);
-            treeTraversal(currentNode.RightChild, action);
+            treeTraversalPreOrder(currentNode.LeftChild, action);
+            treeTraversalPreOrder(currentNode.RightChild, action);
         }
+    }
+
+    private void treeTraversalInOrder(BSTNode<T> currentNode, Consumer<BSTNode<T>> action) {
+        if (currentNode != null) {
+            treeTraversalInOrder(currentNode.LeftChild, action);
+            action.accept(currentNode);
+            treeTraversalInOrder(currentNode.RightChild, action);
+        }
+    }
+
+    private void treeTraversalPostOrder(BSTNode<T> currentNode, Consumer<BSTNode<T>> action) {
+        if (currentNode != null) {
+            treeTraversalPostOrder(currentNode.LeftChild, action);
+            treeTraversalPostOrder(currentNode.RightChild, action);
+            action.accept(currentNode);
+        }
+    }
+
+    public static void main(String[] args) {
+        BST<Integer> tree = new BST<>(null);
+        tree.AddKeyValue(10, 2);
+        tree.AddKeyValue(1, 3);
+        tree.AddKeyValue(0, 3);
+        tree.AddKeyValue(3, 4);
+        tree.AddKeyValue(4, 4);
+        tree.AddKeyValue(2, 4);
+        tree.AddKeyValue(7, 7);
+        tree.AddKeyValue(9, 7);
+        tree.AddKeyValue(8, 7);
+        tree.AddKeyValue(11, 7);
+        List<Integer> list = tree.DeepAllNodes(2).stream().map(x -> x.NodeKey).collect(Collectors.toList());
+        System.out.println(list);
     }
 }
