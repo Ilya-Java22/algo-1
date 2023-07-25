@@ -1,4 +1,4 @@
-package main.binarysearchtrees;
+package main.algo2.trees.binarysearchtrees;
 
 import java.util.ArrayList;
 import java.util.LinkedList;

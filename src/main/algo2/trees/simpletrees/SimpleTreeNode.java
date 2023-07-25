@@ -1,4 +1,4 @@
-package main.algo2.trees;
+package main.algo2.trees.simpletrees;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
