@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
 
 class BSTNode<T>
 {
@@ -231,21 +230,5 @@ class BST<T> {
             treeTraversalPostOrder(currentNode.RightChild, action);
             action.accept(currentNode);
         }
-    }
-
-    public static void main(String[] args) {
-        BST<Integer> tree = new BST<>(null);
-        tree.AddKeyValue(10, 2);
-        tree.AddKeyValue(1, 3);
-        tree.AddKeyValue(0, 3);
-        tree.AddKeyValue(3, 4);
-        tree.AddKeyValue(4, 4);
-        tree.AddKeyValue(2, 4);
-        tree.AddKeyValue(7, 7);
-        tree.AddKeyValue(9, 7);
-        tree.AddKeyValue(8, 7);
-        tree.AddKeyValue(11, 7);
-        List<Integer> list = tree.DeepAllNodes(2).stream().map(x -> x.NodeKey).collect(Collectors.toList());
-        System.out.println(list);
     }
 }
