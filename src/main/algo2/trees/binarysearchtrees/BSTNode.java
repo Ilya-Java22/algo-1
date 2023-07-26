@@ -2,7 +2,6 @@ package main.algo2.trees.binarysearchtrees;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
@@ -161,8 +160,8 @@ class BST<T> {
 
 
     //рекурсивный обход в ширину с формированием списка ArrayList
-    public List<BSTNode> WideAllNodes() {
-        List<BSTNode> result = new ArrayList<>();
+    public ArrayList<BSTNode> WideAllNodes() {
+        ArrayList<BSTNode> result = new ArrayList<>();
         if (this.Root != null) {
             Queue<BSTNode> data = new LinkedList<>();
             data.offer(this.Root);
@@ -188,8 +187,8 @@ class BST<T> {
         BFS(data, action);
     }
 
-    public List<BSTNode> DeepAllNodes(int treeTraversalType) {
-        List<BSTNode> result = new ArrayList<>();
+    public ArrayList<BSTNode> DeepAllNodes(int treeTraversalType) {
+        ArrayList<BSTNode> result = new ArrayList<>();
         if (this.Root == null) {
             return result;
         }
