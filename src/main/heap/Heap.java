@@ -11,7 +11,7 @@ class Heap
 
     public void MakeHeap(int[] a, int depth)
     {
-        HeapArray = IntStream.range(0, 2 ^ (depth + 1) - 1)
+        HeapArray = IntStream.range(0, (int) Math.pow(2, depth + 1) - 1)
                 .map(i -> i < a.length ? a[i] : -1)
                 .toArray();
         lastFilledIndex = a.length - 1;
@@ -69,5 +69,4 @@ class Heap
         lastFilledIndex++;
         return true;
     }
-
 }
