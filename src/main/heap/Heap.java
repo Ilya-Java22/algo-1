@@ -56,6 +56,7 @@ class Heap
         if (currentIndex >= HeapArray.length) {
             return false; // если куча вся заполнена
         }
+        HeapArray[currentIndex] = key;
         int parentIndex = (currentIndex - 1) / 2;
         while (currentIndex > 0 && HeapArray[parentIndex] < HeapArray[currentIndex])
         {
