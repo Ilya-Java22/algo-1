@@ -66,6 +66,15 @@ class SimpleTree<T>
         }
     }
 
+    private void treeTraversal2(SimpleTreeNode<T> t, Predicate<SimpleTreeNode<T>> p, Consumer<SimpleTreeNode<T>> c) {
+        if (p.test(t)) {
+            c.accept(t);
+            for (SimpleTreeNode<T> el : t.Children) {
+                treeTraversal(el, p, c);
+            }
+        }
+    }
+
     public List<SimpleTreeNode<T>> GetAllNodes()
     {
         List<SimpleTreeNode<T>> rsl = new LinkedList<>();
@@ -120,5 +129,17 @@ class SimpleTree<T>
         AtomicInteger count = new AtomicInteger(0);
         treeTraversal(this.Root, e -> e.Children == null || e.Children.isEmpty(), e -> count.incrementAndGet());
         return count.get();
+    }
+
+    public ArrayList<T> EvenTrees()
+    {
+        ArrayList<T> resultList = new ArrayList<>();
+            treeTraversal2(this.Root, e -> new SimpleTree<T>(e).Count() % 2 == 0, e -> {
+                if (e != this.Root) {
+                    resultList.add(e.Parent.NodeValue);
+                    resultList.add(e.NodeValue);
+                }
+            });
+        return resultList;
     }
 }
