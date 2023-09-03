@@ -67,11 +67,12 @@ class SimpleTree<T>
     }
 
     private void treeTraversal2(SimpleTreeNode<T> t, Predicate<SimpleTreeNode<T>> p, Consumer<SimpleTreeNode<T>> c) {
-        if (p.test(t)) {
-            c.accept(t);
-            for (SimpleTreeNode<T> el : t.Children) {
-                treeTraversal(el, p, c);
-            }
+        if (!p.test(t)) {
+            return;
+        }
+        c.accept(t);
+        for (SimpleTreeNode<T> el : t.Children) {
+            treeTraversal(el, p, c);
         }
     }
 
