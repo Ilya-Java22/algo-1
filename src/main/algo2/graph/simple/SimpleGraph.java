@@ -92,7 +92,7 @@ class SimpleGraph
                     Collections.reverse(resultList);
                     return resultList;
                 }
-                if (m_adjacency[currentVertexIndex][i] == 1 && i != currentVertexIndex && !vertex[i].Hit) {
+                if (m_adjacency[currentVertexIndex][i] == 1 && !vertex[i].Hit) {
                     currentVertex = vertex[i];
                     foundAdjacentVertex = true;
                     break;
