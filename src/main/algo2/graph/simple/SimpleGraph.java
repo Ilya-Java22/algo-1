@@ -2,6 +2,7 @@ package main.algo2.graph.simple;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Deque;
 
 class Vertex
@@ -87,7 +88,9 @@ class SimpleGraph
             for (int i = 0; i < max_vertex; i++) {
                 if (m_adjacency[currentVertexIndex][i] == 1 && vertex[i] == vertex[VTo]) {
                     vertexStack.push(vertex[VTo]);
-                    return new ArrayList<>(vertexStack);
+                    ArrayList<Vertex> resultList = new ArrayList<>(vertexStack);
+                    Collections.reverse(resultList);
+                    return resultList;
                 }
                 if (m_adjacency[currentVertexIndex][i] == 1 && i != currentVertexIndex && !vertex[i].Hit) {
                     currentVertex = vertex[i];
