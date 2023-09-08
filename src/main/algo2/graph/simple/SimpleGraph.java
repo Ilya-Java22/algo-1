@@ -14,6 +14,13 @@ class Vertex
         Value = val;
         Hit = false;
     }
+
+    @Override
+    public String toString() {
+        return "Vertex{" +
+                "Value=" + Value +
+                '}';
+    }
 }
 
 class SimpleGraph
@@ -77,6 +84,7 @@ class SimpleGraph
     public ArrayList<Vertex> DepthFirstSearch(int VFrom, int VTo) {
         Deque<Vertex> vertexStack = new ArrayDeque<>();
         Vertex currentVertex = vertex[VFrom];
+        int currentVertexIndex = VFrom;
         boolean foundAdjacentVertex;
         while (currentVertex != null) {
             foundAdjacentVertex = false;
@@ -84,16 +92,22 @@ class SimpleGraph
                 currentVertex.Hit = true;
                 vertexStack.push(currentVertex);
             }
-            int currentVertexIndex = searchIndex(currentVertex);
             for (int i = 0; i < max_vertex; i++) {
-                if (m_adjacency[currentVertexIndex][i] == 1 && vertex[i] == vertex[VTo]) {
-                    vertexStack.push(vertex[VTo]);
-                    ArrayList<Vertex> resultList = new ArrayList<>(vertexStack);
-                    Collections.reverse(resultList);
-                    return resultList;
+                if (m_adjacency[currentVertexIndex][i] != 1) {
+                    continue;
                 }
-                if (m_adjacency[currentVertexIndex][i] == 1 && !vertex[i].Hit) {
+                if (VFrom == VTo && m_adjacency[VFrom][VFrom] == 1) {
+                    return formResultList(vertexStack, VTo);
+                }
+                if (VFrom == VTo && i == VTo && vertexStack.size() <= 2) {
+                    continue;
+                }
+                if (i == VTo) {
+                    return formResultList(vertexStack, VTo);
+                }
+                if (!vertex[i].Hit) {
                     currentVertex = vertex[i];
+                    currentVertexIndex = i;
                     foundAdjacentVertex = true;
                     break;
                 }
@@ -101,10 +115,12 @@ class SimpleGraph
             if (!foundAdjacentVertex) {
                 vertexStack.pop();
                 currentVertex = vertexStack.peek();
+                currentVertexIndex = searchIndex(currentVertex);
             }
         }
         return new ArrayList<>();
     }
+
 
     private int searchIndex(Vertex searchingVertex) {
         for (int i = 0; i < max_vertex; i++) {
@@ -113,5 +129,12 @@ class SimpleGraph
             }
         }
         return -1;
+    }
+
+    private ArrayList<Vertex> formResultList(Deque<Vertex> vertexStack, int VTo) {
+        vertexStack.push(vertex[VTo]);
+        ArrayList<Vertex> resultList = new ArrayList<>(vertexStack);
+        Collections.reverse(resultList);
+        return resultList;
     }
 }
