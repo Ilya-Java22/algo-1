@@ -1,9 +1,6 @@
 package main.algo2.graph.simple;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Deque;
+import java.util.*;
 
 class Vertex
 {
@@ -14,6 +11,8 @@ class Vertex
         Value = val;
         Hit = false;
     }
+
+    public ArrayList<Vertex> track = new ArrayList<>();
 
     @Override
     public String toString() {
@@ -83,7 +82,7 @@ class SimpleGraph
 
     public ArrayList<Vertex> DepthFirstSearch(int VFrom, int VTo) {
         Deque<Vertex> vertexStack = new ArrayDeque<>();
-        clearVerticesHits();
+        clearVerticesHitsAndTracks();
         Vertex currentVertex = vertex[VFrom];
         int currentVertexIndex = VFrom;
         boolean foundAdjacentVertex;
@@ -139,9 +138,36 @@ class SimpleGraph
         return resultList;
     }
 
-    private void clearVerticesHits() {
+    private void clearVerticesHitsAndTracks() {
         for (Vertex vertex : vertex) {
             vertex.Hit = false;
+            vertex.track.clear();
         }
+    }
+
+    public ArrayList<Vertex> BreadthFirstSearch(int VFrom, int VTo)
+    {
+        Queue<Vertex> vertexQueue = new LinkedList<>();
+        clearVerticesHitsAndTracks();
+        vertex[VFrom].Hit = true;
+        vertex[VFrom].track.add(vertex[VFrom]);
+        vertexQueue.offer(vertex[VFrom]);
+        while(!vertexQueue.isEmpty()) {
+            Vertex currentVertex = vertexQueue.poll();
+            int currentVertexIndex = searchIndex(currentVertex);
+            for (int i = 0; i < max_vertex; i++) {
+                if (m_adjacency[currentVertexIndex][i] == 1 && i == VTo) {
+                    currentVertex.track.add(vertex[i]);
+                    return currentVertex.track;
+                }
+                if (m_adjacency[currentVertexIndex][i] == 1 && !vertex[i].Hit) {
+                    vertex[i].Hit = true;
+                    vertex[i].track.addAll(currentVertex.track);
+                    vertex[i].track.add(vertex[i]);
+                    vertexQueue.offer(vertex[i]);
+                }
+            }
+        }
+        return new ArrayList<>();
     }
 }
