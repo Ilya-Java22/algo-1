@@ -83,6 +83,7 @@ class SimpleGraph
 
     public ArrayList<Vertex> DepthFirstSearch(int VFrom, int VTo) {
         Deque<Vertex> vertexStack = new ArrayDeque<>();
+        clearVerticesHits();
         Vertex currentVertex = vertex[VFrom];
         int currentVertexIndex = VFrom;
         boolean foundAdjacentVertex;
@@ -136,5 +137,11 @@ class SimpleGraph
         ArrayList<Vertex> resultList = new ArrayList<>(vertexStack);
         Collections.reverse(resultList);
         return resultList;
+    }
+
+    private void clearVerticesHits() {
+        for (Vertex vertex : vertex) {
+            vertex.Hit = false;
+        }
     }
 }
