@@ -1,6 +1,7 @@
 package main.algo2.graph.simple;
 
 import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 class Vertex
@@ -81,6 +82,34 @@ class SimpleGraph
         m_adjacency[v2][v1] = 0;
     }
 
+    //не работает с циклами
+    public ArrayList<Vertex> DepthFirstSearchWOCycles(int VFrom, int VTo) {
+        Deque<Vertex> vertexStack = new ArrayDeque<>();
+        clearVerticesHitsAndTracks();
+        vertex[VFrom].Hit = true;
+        vertexStack.push(vertex[VFrom]);
+        while (!vertexStack.isEmpty()) {
+            Vertex currentVertex = vertexStack.peek();
+            int currentVertexIndex = searchIndex(currentVertex);
+            for (int i = 0; i < max_vertex; i++) {
+                if (m_adjacency[currentVertexIndex][i] == 1 && i == VTo) {
+                    return formResultList(vertexStack, VTo);
+                }
+                if (m_adjacency[currentVertexIndex][i] == 1 && !vertex[i].Hit) {
+                    vertex[i].Hit = true;
+                    vertexStack.push(vertex[i]);
+                    break;
+                }
+                if (i == max_vertex - 1) {
+                    vertexStack.pop();
+                }
+            }
+        }
+        return new ArrayList<>();
+    }
+
+    //работает и при поиске цикла, за это - вакханалия в for) но вообще в код в принципе нагроможден, кажется)
+    // сравни с более поздней версией выше без циклов
     public ArrayList<Vertex> DepthFirstSearch(int VFrom, int VTo) {
         Deque<Vertex> vertexStack = new ArrayDeque<>();
         clearVerticesHitsAndTracks();
@@ -146,6 +175,7 @@ class SimpleGraph
         }
     }
 
+    //не работает при поиске цикла, но зато лаконично
     public ArrayList<Vertex> BreadthFirstSearch(int VFrom, int VTo)
     {
         Queue<Vertex> vertexQueue = new LinkedList<>();
@@ -184,7 +214,7 @@ class SimpleGraph
             List<Integer> adjacentVerticesIndexes = IntStream.range(0, max_vertex)
                     .filter(j -> finalI != j && m_adjacency[finalI][j] == 1 && !resultSet.contains(vertex[j]))
                     .boxed()
-                    .toList();
+                    .collect(Collectors.toList());
             int[] foundInListAdjacentVertices = searchAdjacentVertices(adjacentVerticesIndexes);
             if (foundInListAdjacentVertices.length == 0) {
                 resultSet.add(vertex[i]);
