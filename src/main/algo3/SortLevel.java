@@ -9,6 +9,7 @@ public class SortLevel
             for (int j = i + 1; j < array.length; j++) {
                 if (array[j] < currentMinElement) {
                     minElementIndex = j;
+                    currentMinElement = array[j];
                 }
             }
             swap(array, minElementIndex, i);
