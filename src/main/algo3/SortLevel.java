@@ -17,14 +17,14 @@ public class SortLevel
 
     public static boolean BubbleSortStep( int array[] )
     {
-        boolean swappingOccured = false;
+        boolean swappingAbsent = true;
         for (int i = 0; i < array.length - 1; i++) {
             if (array[i] > array[i + 1]) {
                 swap(array, i, i + 1);
-                swappingOccured = true;
+                swappingAbsent = false;
             }
         }
-        return swappingOccured;
+        return swappingAbsent;
     }
 
     private static void swap(int[] array, int in, int in1) {
