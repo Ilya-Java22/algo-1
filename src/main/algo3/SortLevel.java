@@ -1,5 +1,7 @@
 package main.algo3;
 
+import java.util.Arrays;
+
 public class SortLevel
 {
     public static void SelectionSortStep( int array[], int i )
@@ -25,6 +27,18 @@ public class SortLevel
             }
         }
         return swappingAbsent;
+    }
+
+    public static void InsertionSortStep( int[] array, int step, int i )
+    {
+        int[] elementsSelection = new int[(array.length - 1 - i) / step + 1];
+        for (int j = i, k = 0; j < array.length; j += step) {
+            elementsSelection[k++] = array[j];
+        }
+        Arrays.sort(elementsSelection);
+        for (int j = i, k = 0; j < array.length; j += step) {
+            array[j] = elementsSelection[k++];
+        }
     }
 
     private static void swap(int[] array, int in, int in1) {
