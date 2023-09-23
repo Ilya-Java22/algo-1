@@ -1,5 +1,6 @@
 package main.algo3;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class SortLevel
@@ -39,6 +40,16 @@ public class SortLevel
         for (int j = i, k = 0; j < array.length; j += step) {
             array[j] = elementsSelection[k++];
         }
+    }
+
+    public static ArrayList<Integer> KnuthSequence(int array_size ) {
+        int lengthKnuthSequence = (int) (Math.log((2.0 * array_size + 1) / 3) / Math.log(3)) + 1;
+        ArrayList<Integer> result = new ArrayList<>(lengthKnuthSequence);
+        for (int i = 0; i < lengthKnuthSequence; i++) {
+            int currentElement = i == 0 ? 1 : 3 * result.get(0) + 1;
+            result.add(0, currentElement);
+        }
+        return result;
     }
 
     private static void swap(int[] array, int in, int in1) {
