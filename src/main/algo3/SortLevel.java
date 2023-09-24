@@ -53,35 +53,29 @@ public class SortLevel
     }
 
     public static int ArrayChunk( int[] M ) {
+        int N = M[M.length / 2];
+        int indexN = M.length / 2;
+        int i1 = 0;
+        int i2 = M.length - 1;
         while(true) {
-            int N = M[M.length / 2];
-            int indexN = M.length / 2;
-            int i1 = 0;
-            int i2 = M.length - 1;
-            while(true) {
-                while(M[i1] < N) {
-                    i1++;
-                }
-                while(M[i2] > N) {
-                    i2--;
-                }
-                if (i1 == i2 - 1 && M[i1] > M[i2]) {
-                    swap(M, i1, i2);
-                    break;
-                }
-                if (i1 == i2 || (i1 == i2 - 1 && M[i1] < M[i2])) {
-                    return indexN;
-                }
+            while(M[i1] < N) {
+                i1++;
+            }
+            while(M[i2] > N) {
+                i2--;
+            }
+            if (i1 == i2 - 1 && M[i1] > M[i2]) {
                 swap(M, i1, i2);
-                if (i1 == indexN) {
-                    indexN = i2;
-                }
-                if (i2 == indexN) {
-                    indexN = i1;
-                }
+                return ArrayChunk(M);
+            }
+            if (i1 == i2 || (i1 == i2 - 1 && M[i1] < M[i2])) {
+                return indexN;
+            }
+            swap(M, i1, i2);
+            if (indexN == i1 || indexN == i2) {
+                indexN = indexN == i1 ? i2 : i1;
             }
         }
-
     }
 
     private static void swap(int[] array, int in, int in1) {
