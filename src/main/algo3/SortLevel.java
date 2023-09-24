@@ -39,7 +39,7 @@ public class SortLevel
         Arrays.sort(elementsSelection);
         for (int j = i, k = 0; j < array.length; j += step) {
             array[j] = elementsSelection[k++];
-        }
+        }   
     }
 
     public static ArrayList<Integer> KnuthSequence(int array_size ) {
@@ -50,6 +50,15 @@ public class SortLevel
             result.add(0, currentElement);
         }
         return result;
+    }
+
+    public static void Shell(int[] M) {
+        ArrayList<Integer> knuthSequence = KnuthSequence(M.length);
+        for (int i = 0; i < knuthSequence.size(); i++) {
+            for (int j = 0; j < knuthSequence.get(i); j++) {
+                InsertionSortStep(M, knuthSequence.get(i), j);
+            }
+        }
     }
 
     public static int ArrayChunk( int[] M ) {
@@ -75,6 +84,16 @@ public class SortLevel
             if (indexN == i1 || indexN == i2) {
                 indexN = indexN == i1 ? i2 : i1;
             }
+        }
+    }
+
+    public static void QuickSort( int[] array, int left, int right ) {
+        if (left < right) {
+            int[] newArray = Arrays.copyOfRange(array, left, right + 1);
+            int refIndex = ArrayChunk(newArray) + left;
+            System.arraycopy(newArray, 0, array, left, right + 1 - left);
+            QuickSort(array, left, refIndex - 1);
+            QuickSort(array, refIndex + 1, right);
         }
     }
 
