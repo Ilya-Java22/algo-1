@@ -97,6 +97,23 @@ public class SortLevel
         }
     }
 
+    public static void QuickSortTailOptimization( int[] array, int left, int right ) {
+        while (left < right) {
+            int[] newArray = Arrays.copyOfRange(array, left, right + 1);
+            int refIndex = ArrayChunk(newArray) + left;
+            System.arraycopy(newArray, 0, array, left, right + 1 - left);
+            if (refIndex - left < right - refIndex)
+            {
+                QuickSortTailOptimization(array, left, refIndex - 1);
+                left = refIndex + 1;
+            }
+            else {
+                QuickSortTailOptimization(array, refIndex + 1, right);
+                right = refIndex - 1;
+            }
+        }
+    }
+
     private static void swap(int[] array, int in, int in1) {
         int temp = array[in];
         array[in] = array[in1];
