@@ -170,6 +170,7 @@ public class SortLevel
         return KthOrderStatistics(Array, L, R, k);
     }
 
+    //плохой демонстрационно-учебный вариант
     public static ArrayList<Integer> MergeSort(ArrayList<Integer> arrayList) {
         return IntroMergeSort(arrayList, 0, arrayList.size() - 1);
     }

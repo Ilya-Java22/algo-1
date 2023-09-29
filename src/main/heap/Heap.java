@@ -2,7 +2,7 @@ package main.heap;
 
 import java.util.stream.IntStream;
 
-class Heap
+public class Heap
 {
     public int [] HeapArray; // хранит неотрицательные числа-ключи
 
@@ -33,11 +33,11 @@ class Heap
     }
 
     private void toShiftDown(int i) {
-        while (2 * i + 1 < lastFilledIndex) {
+        while (2 * i + 1 <= lastFilledIndex) {
             int leftChild = 2 * i + 1;
             int rightChild = 2 * i + 2;
             int j = leftChild;
-            if (rightChild < lastFilledIndex && HeapArray[rightChild] > HeapArray[leftChild]) {
+            if (rightChild <= lastFilledIndex && HeapArray[rightChild] > HeapArray[leftChild]) {
                 j = rightChild;
             }
             if (HeapArray[i] >= HeapArray[j]) {
