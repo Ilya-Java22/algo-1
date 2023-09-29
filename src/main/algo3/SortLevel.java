@@ -2,6 +2,7 @@ package main.algo3;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class SortLevel
 {
@@ -152,6 +153,49 @@ public class SortLevel
             R = N - 1;
         }
         return new ArrayList<>(Arrays.asList(L, R));
+    }
+
+    //моё
+    public static int KthOrderStatistics( int[] Array, int L, int R, int k ) {
+        int N = ArrayChunk2(Array, L, R);
+        if (k == N) {
+            return Array[N];
+        }
+        if (k > N) {
+            L = N + 1;
+        }
+        if (k < N) {
+            R = N - 1;
+        }
+        return KthOrderStatistics(Array, L, R, k);
+    }
+
+    public static ArrayList<Integer> MergeSort(ArrayList<Integer> arrayList) {
+        return IntroMergeSort(arrayList, 0, arrayList.size() - 1);
+    }
+
+    private static ArrayList<Integer> IntroMergeSort(ArrayList<Integer> arrayList, int from, int to) {
+        if (from == to) {
+            return new ArrayList<>(List.of(arrayList.get(from)));
+        }
+        int mid = (from + to) / 2;
+        ArrayList<Integer> leftSublist = IntroMergeSort(arrayList, from, mid);
+        ArrayList<Integer> rightSublist = IntroMergeSort(arrayList, mid + 1, to);
+        ArrayList<Integer> resultList = new ArrayList<>();
+        while (!leftSublist.isEmpty() && !rightSublist.isEmpty()) {
+            int leftSublistElement = leftSublist.get(0);
+            int rightSublistElement = rightSublist.get(0);
+            if (leftSublistElement <= rightSublistElement) {
+                resultList.add(leftSublistElement);
+                leftSublist.remove(0);
+                continue;
+            }
+            resultList.add(rightSublistElement);
+            rightSublist.remove(0);
+        }
+        resultList.addAll(leftSublist);
+        resultList.addAll(rightSublist);
+        return resultList;
     }
 
     private static void swap(int[] array, int in, int in1) {
