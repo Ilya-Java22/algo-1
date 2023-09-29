@@ -62,8 +62,8 @@ public class SortLevel
     }
 
     public static int ArrayChunk( int[] M ) {
-        int N = M[M.length / 2];
         int indexN = M.length / 2;
+        int N = M[indexN];
         int i1 = 0;
         int i2 = M.length - 1;
         while(true) {
@@ -87,6 +87,42 @@ public class SortLevel
         }
     }
 
+    //моё
+    public static int ArrayChunk2( int[] M, int left, int right) {
+        int indexN = (left + right) / 2;
+        int N = M[(left + right) / 2];
+        int i1 = 0;
+        int i2 = M.length - 1;
+        while(true) {
+            while(M[i1] < N) {
+                i1++;
+            }
+            while(M[i2] > N) {
+                i2--;
+            }
+            if (i1 == i2 - 1 && M[i1] > M[i2]) {
+                swap(M, i1, i2);
+                return ArrayChunk2(M, left, right);
+            }
+            if (i1 == i2 || (i1 == i2 - 1 && M[i1] < M[i2])) {
+                return indexN;
+            }
+            swap(M, i1, i2);
+            if (indexN == i1 || indexN == i2) {
+                indexN = indexN == i1 ? i2 : i1;
+            }
+        }
+    }
+
+    //моё
+    public static void SimplifiedChunkQuickSort( int[] array, int left, int right ) {
+        if (left < right) {
+            int refIndex = ArrayChunk2(array, left, right);
+            QuickSort(array, left, refIndex - 1);
+            QuickSort(array, refIndex + 1, right);
+        }
+    }
+
     public static void QuickSort( int[] array, int left, int right ) {
         if (left < right) {
             int[] newArray = Arrays.copyOfRange(array, left, right + 1);
@@ -105,6 +141,17 @@ public class SortLevel
             QuickSortTailOptimization(array, left, refIndex - 1);
             left = refIndex + 1;
         }
+    }
+
+    public static ArrayList<Integer> KthOrderStatisticsStep( int[] Array, int L, int R, int k ) {
+        int N = ArrayChunk2(Array, L, R);
+        if (k > N) {
+            L = N + 1;
+        }
+        if (k < N) {
+            R = N - 1;
+        }
+        return new ArrayList<>(Arrays.asList(L, R));
     }
 
     private static void swap(int[] array, int in, int in1) {
