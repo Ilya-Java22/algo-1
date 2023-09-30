@@ -30,9 +30,9 @@ public class BinarySearch {
         } else {
             Left = mid + 1;
         }
-        if (Left - Right > 0) {
-            searchingStatus = -1;
-            searchingIsOver = true;
+        if (Left >= Right) {
+            searchingStatus = Left == Right && array[Left] == N ? 1 : -1;
+            searchingIsOver = Left == Right && array[Left] == N;
             return;
         }
         searchingStatus = 0;
