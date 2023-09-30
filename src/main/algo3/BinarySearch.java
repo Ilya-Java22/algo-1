@@ -23,8 +23,12 @@ public class BinarySearch {
         } else {
             Left = mid + 1;
         }
-        if (Left >= Right) {
-            searchingStatus = Left == Right && array[Left] == N ? 1 : -1;
+        if (Right - Left == 1) {
+            searchingStatus = array[Right] == N || array[Left] == N ? 1 : -1;
+            return;
+        }
+        if (Right <= Left) {
+            searchingStatus = Right == Left && array[Left] == N ? 1 : -1;
             return;
         }
         searchingStatus = 0;

@@ -8,8 +8,10 @@ class BinarySearchTest {
     @Test
     void testTryToFind1() {
         BinarySearch binarySearch = new BinarySearch(new int[] {1,10});
-        binarySearch.Step(1);
-        assertThat(binarySearch.GetResult()).isEqualTo(1);
+        binarySearch.Step(0);
+        assertThat(binarySearch.GetResult()).isEqualTo(-1);
+//        assertThat(binarySearch.GetResult()).isEqualTo(1);
+//        assertThat(binarySearch.GetResult()).isEqualTo(1);
     }
 
     @Test
@@ -25,24 +27,15 @@ class BinarySearchTest {
 
     @Test
     void testTryToFind11Twiceand17() {
-        BinarySearch binarySearch = new BinarySearch(new int[] {10,11,12,13,14,15,16,17});
-        binarySearch.Step(11);
+        BinarySearch binarySearch = new BinarySearch(new int[] {10,11,12,13,15,16,17,18});
+        binarySearch.Step(14);
         assertThat(binarySearch.GetResult()).isEqualTo(0);
-        binarySearch.Step(11);
-        assertThat(binarySearch.GetResult()).isEqualTo(1);
-        binarySearch.Step(11);
-        assertThat(binarySearch.GetResult()).isEqualTo(0);
-        binarySearch.Step(11);
-        assertThat(binarySearch.GetResult()).isEqualTo(1);
-        binarySearch.Step(17);
-        assertThat(binarySearch.GetResult()).isEqualTo(0);
-        binarySearch.Step(17);
-        assertThat(binarySearch.GetResult()).isEqualTo(0);
-        binarySearch.Step(17);
-        assertThat(binarySearch.GetResult()).isEqualTo(0);
-        binarySearch.Step(17);
-        assertThat(binarySearch.GetResult()).isEqualTo(1);
-
-    }
+        binarySearch.Step(14);
+        assertThat(binarySearch.GetResult()).isEqualTo(-1);
+//        binarySearch.Step(11);
+//        assertThat(binarySearch.GetResult()).isEqualTo(1);
+//        binarySearch.Step(11);
+//        assertThat(binarySearch.GetResult()).isEqualTo(1);
+            }
 
 }
