@@ -1,0 +1,6 @@
+Рефлексии нет, всё ок.
+
+Единственное, помарка при копировании кода: в классе Dequeue следовало написать
+    public abstract Dequeue<T> Dequeue();
+вместо
+    public abstract Queue<T> Queue();
